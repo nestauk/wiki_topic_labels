@@ -80,21 +80,24 @@ import wikipedia
 
 @lru_cache()
 def rank_wiki_labels(query):
+    """Return and rank Wikipedia suggestions, based on their order"""
     results = wikipedia.search(query)
     return Counter({result: 2**(-i) for i, result in enumerate(results)})
 
 
 @lru_cache()
 def get_wiki_cats(title):
+    """Return Wikipedia categories for the given page title"""
     try:
         return wikipedia.page(title=title).categories
     except (wikipedia.PageError,
             wikipedia.DisambiguationError,
             wikipedia.WikipediaException):
-        return Counter()
+        return []
 
 
 def bootstrap_topic(topic, contextual_anchors, n_terms):
+    """Yield topic bootstraps"""
     if n_terms > len(topic):
         n_terms = len(topic)
     for _topic in combinations(topic, n_terms):
@@ -102,6 +105,7 @@ def bootstrap_topic(topic, contextual_anchors, n_terms):
 
 
 def bootstrap_labeller(topic, contextual_anchors, n_terms):
+    """Apply the Wikipedia labeller over topics bootstraps"""    
     counts = Counter()
     for _topic in bootstrap_topic(topic, contextual_anchors, n_terms):
         ranked_labels = rank_wiki_labels(_topic)
@@ -110,6 +114,8 @@ def bootstrap_labeller(topic, contextual_anchors, n_terms):
 
 
 def enrich_from_categories(counts, min_score=0.1, category_boost=2):
+    """[EXPERIMENTAL] Additionally extract Wikipedia categories for each label.
+    Categories which are also labels are used to bolster the score of that label."""        
     cumulator_terms = defaultdict(float)
     for term, score in counts.items():
         if score < min_score:
@@ -125,8 +131,9 @@ def enrich_from_categories(counts, min_score=0.1, category_boost=2):
     return counts
 
 
-def suggest_labels(topic, contextual_anchors=[], topn=3, a
+def suggest_labels(topic, contextual_anchors=[], topn=3,
                    bootstrap_size=3, boost_with_categories=False):
+    """Suggest labels for the given topic"""
     counts = bootstrap_labeller(topic, contextual_anchors, bootstrap_size)
     if boost_with_categories:
         counts = enrich_from_categories(counts)
