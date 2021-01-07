@@ -11,7 +11,7 @@ Installation
 In lieu of putting on PyPi, please do:
 
     pip install wikipedia
-    pip install git+git://github.com/nestauk/wiki_topic_labels/archive/master.zip
+    pip install git+git://github.com/nestauk/wiki_topic_labels/archive/main.zip
 
 Only tested on OSX10.15.6, Python 3.7.
 
