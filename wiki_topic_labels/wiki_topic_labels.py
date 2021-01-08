@@ -10,13 +10,14 @@ Installation
 
 In lieu of putting on PyPi, please do:
 
-    pip install wikipedia
     pip install git+git://github.com/nestauk/wiki_topic_labels/archive/main.zip
 
 Only tested on OSX10.15.6, Python 3.7.
 
 Usage:
 ------
+
+    from wiki_topic_labels import suggest_labels
 
     topic = ['beetle', 'live', 'yellow', 'strong']  # Fairly coherent, yet ambiguous topic
 
@@ -109,7 +110,7 @@ def bootstrap_topic(topic, contextual_anchors, n_terms):
 
 
 def bootstrap_labeller(topic, contextual_anchors, n_terms):
-    """Apply the Wikipedia labeller over topics bootstraps"""    
+    """Apply the Wikipedia labeller over topics bootstraps"""
     counts = Counter()
     for _topic in bootstrap_topic(topic, contextual_anchors, n_terms):
         ranked_labels = rank_wiki_labels(_topic)
@@ -119,7 +120,7 @@ def bootstrap_labeller(topic, contextual_anchors, n_terms):
 
 def enrich_from_categories(counts, min_score=0.1, category_boost=2):
     """[EXPERIMENTAL] Additionally extract Wikipedia categories for each label.
-    Categories which are also labels are used to bolster the score of that label."""        
+    Categories which are also labels are used to bolster the score of that label."""
     cumulator_terms = defaultdict(float)
     for term, score in counts.items():
         if score < min_score:

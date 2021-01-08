@@ -10,7 +10,6 @@ Installation
 In lieu of putting on PyPi, please do:
 
 ```bash
-	pip install wikipedia
 	pip install git+git://github.com/nestauk/wiki_topic_labels/archive/main.zip
 ```
 
@@ -20,6 +19,7 @@ Usage:
 ------
 
 ```python
+    from wiki_topic_labels import suggest_labels
 
 	topic = ['beetle', 'live', 'yellow', 'strong']  # Fairly coherent, yet ambiguous topic
 
