@@ -78,6 +78,6 @@ All combinations of the terms in the topic are used to query Wikipedia's API. Wi
 (I believe based on Elasticsearch ranking) returns relevant page titles, which are interpretted
 as "labels". Bootstrapping over combinations helps to reduce the impact of spurious labels
 from any one combination of terms in the topic. Since we don't know Wikipedia's actual ranking
-score (and it might not any be particularly meaningful), a score is assigned as
+score (and it might not anyway be particularly meaningful), a score is assigned as
 `2^{-i}` where `i` is relative positional ranking of the label, as returned by Wikipedia.
 Topic scores are then summed over bootstraps, and the top-n results are returned.
