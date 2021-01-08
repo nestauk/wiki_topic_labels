@@ -67,7 +67,7 @@ Arguments:
 	topn (int, default=3): The number of label suggestions to return, ordered by relevance. If set to `None`, all
 						   available labels are returned.
 
-	bootstrap_size (int, default=3): Size of bootstraps (number of topics per combination) to query Wikipedia with.
+	bootstrap_size (int, default=3): Size of bootstraps (number of topic terms per combination) to query Wikipedia with.
 
 	boost_with_categories (list, optional): [SLOW] To boost the method a little further, this option will
 											additionally extract Wikipedia categories for each label.
