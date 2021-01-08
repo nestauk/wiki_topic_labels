@@ -92,6 +92,7 @@ import wikipedia
 def rank_wiki_labels(query):
     """Return and rank Wikipedia suggestions, based on their order"""
     results = wikipedia.search(query)
+    # Score calculate as a power series 2^-n
     return Counter({result: 2**(-i) for i, result in enumerate(results)})
 
 
@@ -110,6 +111,7 @@ def bootstrap_topic(topic, contextual_anchors, n_terms):
     """Yield topic bootstraps"""
     if n_terms > len(topic):
         n_terms = len(topic)
+    # e.g. [1, 2, 3, 4] --> (1, 2, 3), (1, 2, 4), (1, 3, 4), (2, 3, 4)
     for _topic in combinations(topic, n_terms):
         yield ' '.join(list(_topic) + contextual_anchors)
 
@@ -119,7 +121,7 @@ def bootstrap_labeller(topic, contextual_anchors, n_terms):
     counts = Counter()
     for _topic in bootstrap_topic(topic, contextual_anchors, n_terms):
         ranked_labels = rank_wiki_labels(_topic)
-        counts += ranked_labels
+        counts += ranked_labels  # Sum the label scores
     return counts
 
 
@@ -127,15 +129,20 @@ def enrich_from_categories(counts, min_score=0.1, category_boost=2):
     """[EXPERIMENTAL] Additionally extract Wikipedia categories for each label.
     Categories which are also labels are used to bolster the score of that label."""
     cumulator_terms = defaultdict(float)
-    for term, score in counts.items():
+    for label, score in counts.items():
+        # Time saving: don't consider labels with a low score
         if score < min_score:
             continue
-        for cat in get_wiki_cats(term):
-            if cat == term:
+        # Iterate over categories for this label
+        for cat in get_wiki_cats(label):
+            if cat == label:
                 continue
+            # Only boost existing labels
             if cat not in counts:
                 continue
+            # Boost the score with that of the label
             cumulator_terms[cat] = cumulator_terms[cat] + score
+    # Increment the global score counter
     for term, count in Counter(cumulator_terms).most_common():
         counts[term] = counts[term] + category_boost*count
     return counts
