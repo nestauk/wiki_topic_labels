@@ -39,11 +39,11 @@ Usage:
     >>> ['The Beatles', 'Gang of Four (band)', 'Yellow Magic Orchestra']
 
     # Contextually anchored to "car"
-    suggest_labels(topics, contextual_anchors=['car'])
+    suggest_labels(topic, contextual_anchors=['car'])
     >>> ['Bumblebee (Transformers)', 'List of best-selling automobiles', 'Volkswagen Beetle']
 
     # Boost with Wikipedia categories. Slower, but does a slightly better job.
-    suggest_labels(topics, contextual_anchors=['car'], boost_with_categories=True)
+    suggest_labels(topic, contextual_anchors=['car'], boost_with_categories=True)
     >>> ['Volkswagen Beetle', 'Bumblebee (Transformers)', 'List of best-selling automobiles']
 
 As you can see, it does an ok job - which is sufficient for my use case.
