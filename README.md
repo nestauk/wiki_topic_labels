@@ -10,13 +10,13 @@ Installation
 In lieu of putting on PyPi, please do:
 
 ```bash
-	pip install git+https://github.com/nestauk/wiki_topic_labels.git
+pip install git+https://github.com/nestauk/wiki_topic_labels.git
 ```
 
 or, for a specific `branch_name`:
 
 ```bash
-    pip install git+https://github.com/nestauk/wiki_topic_labels.git@branch_name
+pip install git+https://github.com/nestauk/wiki_topic_labels.git@branch_name
 ```
 
 Only tested on OSX10.15.6, Python 3.7.
@@ -25,29 +25,29 @@ Usage:
 ------
 
 ```python
-    from wiki_topic_labels import suggest_labels
+from wiki_topic_labels import suggest_labels
 
-	topic = ['beetle', 'live', 'yellow', 'strong']  # Fairly coherent, yet ambiguous topic
+topic = ['beetle', 'live', 'yellow', 'strong']  # Fairly coherent, yet ambiguous topic
 
-	# Default suggestions
-	suggest_labels(topic)
-	>>> ['Hercules beetle', 'Beetle', 'Livestrong Foundation']
+# Default suggestions
+suggest_labels(topic)
+>>> ['Hercules beetle', 'Beetle', 'Livestrong Foundation']
 
-	# Contextually anchored to "insects"
-	suggest_labels(topic, contextual_anchors=['insects'])
-	>>> ['Hercules beetle', 'Insect', 'Aquatic insect']
+# Contextually anchored to "insects"
+suggest_labels(topic, contextual_anchors=['insects'])
+>>> ['Hercules beetle', 'Insect', 'Aquatic insect']
 
-	# Contextually anchored to "music" and "band"
-	suggest_labels(topic, contextual_anchors=['music', 'band'])
-	>>> ['The Beatles', 'Gang of Four (band)', 'Yellow Magic Orchestra']
+# Contextually anchored to "music" and "band"
+suggest_labels(topic, contextual_anchors=['music', 'band'])
+>>> ['The Beatles', 'Gang of Four (band)', 'Yellow Magic Orchestra']
 
-	# Contextually anchored to "car"
-	suggest_labels(topic, contextual_anchors=['car'])
-	>>> ['Bumblebee (Transformers)', 'List of best-selling automobiles', 'Volkswagen Beetle']
+# Contextually anchored to "car"
+suggest_labels(topic, contextual_anchors=['car'])
+>>> ['Bumblebee (Transformers)', 'List of best-selling automobiles', 'Volkswagen Beetle']
 
-	# Boost with Wikipedia categories. Slower, but does a slightly better job.
-	suggest_labels(topic, contextual_anchors=['car'], boost_with_categories=True)
-	>>> ['Volkswagen Beetle', 'Bumblebee (Transformers)', 'List of best-selling automobiles']
+# Boost with Wikipedia categories. Slower, but does a slightly better job.
+suggest_labels(topic, contextual_anchors=['car'], boost_with_categories=True)
+>>> ['Volkswagen Beetle', 'Bumblebee (Transformers)', 'List of best-selling automobiles']
 ```
 
 As you can see, it does an ok job - which is sufficient for my use case.
