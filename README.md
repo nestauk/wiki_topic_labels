@@ -10,7 +10,13 @@ Installation
 In lieu of putting on PyPi, please do:
 
 ```bash
-	pip install git+git://github.com/nestauk/wiki_topic_labels/archive/main.zip
+	pip install git+https://github.com/nestauk/wiki_topic_labels.git
+```
+
+or, for a specific `branch_name`:
+
+```bash
+    pip install git+https://github.com/nestauk/wiki_topic_labels.git@branch_name
 ```
 
 Only tested on OSX10.15.6, Python 3.7.

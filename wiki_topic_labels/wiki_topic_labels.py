@@ -12,6 +12,11 @@ In lieu of putting on PyPi, please do:
 
     pip install git+git://github.com/nestauk/wiki_topic_labels/archive/main.zip
 
+
+or, for a specific branch:
+
+    pip install git+https://github.com/nestauk/wiki_topic_labels.git@branch_name
+
 Only tested on OSX10.15.6, Python 3.7.
 
 Usage:
